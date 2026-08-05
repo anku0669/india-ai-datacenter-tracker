@@ -93,9 +93,51 @@ html.dark .stat-card {
 
 .leaflet-popup-content { font-size: 0.8rem; line-height: 1.4; }
 .leaflet-popup-content b { display: block; margin-bottom: 2px; }
-.leaflet-container { border-radius: 1rem; }
+.leaflet-container { border-radius: 1rem; background: #0f172a; }
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.leaflet-popup-tip { box-shadow: none; }
 
 .table-wrapper { overflow-x: auto; }
+
+/* ---------- nav links ---------- */
+.nav-link {
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.nav-link:hover { color: #ea580c; }
+.nav-link.active {
+  color: #ea580c;
+  border-bottom-color: #ea580c;
+  font-weight: 600;
+}
+
+/* ---------- explore cards (home page) ---------- */
+.explore-card {
+  display: block;
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.explore-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(234,88,12,0.12);
+  border-color: #fdba74;
+}
+html.dark .explore-card {
+  border-color: #1f2937;
+  background: #111118;
+}
+html.dark .explore-card:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+  border-color: #9a3412;
+}
 
 /* ---------- chart cards ---------- */
 .chart-card {
