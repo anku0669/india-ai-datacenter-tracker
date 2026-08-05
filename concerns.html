@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concerns — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link">Power</a>
+        <a href="water.html" class="nav-link">Water</a>
+        <a href="environment.html" class="nav-link">Environment</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+        <a href="concerns.html" class="nav-link active">Concerns</a>
+        <a href="scaling.html" class="nav-link">Scaling</a>
+        <a href="outcomes.html" class="nav-link">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-4">⚠️ Concerns</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">Why This Build-Out Is a Risk for India, Right Now</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">Risks tied to the current, already-announced pipeline — distinct from the further-scaling risks covered on the Scaling page.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card"><span class="topic-icon">🚱</span><h3>Water stress in already-scarce regions</h3><p>With three-quarters of facilities sited in water-stressed districts, and cities like Bengaluru, Hyderabad, Chennai and Thane already running below daily municipal demand, large-scale industrial water withdrawal risks deepening shortages for residents, farmers and small businesses — populations that are disproportionately poorer and less able to absorb the cost of scarcity.</p></div>
+      <div class="topic-card"><span class="topic-icon">📜</span><h3>Regulatory and disclosure gaps</h3><p>India currently has <strong>no mandatory water-stress mapping</strong> and no standard thermal or environmental-impact assessment requirement specific to data centers — the sector is classified under IT/ITeS rules, exempting it from the environmental clearance process applied to other large infrastructure. Lawyers and activists have flagged the approved 1 GW Vizag Mega Data Centre Park and Google's facility there for failing to disclose water sourcing at the approval stage.</p></div>
+      <div class="topic-card"><span class="topic-icon">🔌</span><h3>Grid strain and rising electricity costs</h3><p>A roughly 6x increase in dedicated data center demand by 2030 will require substantial new generation, transmission and substation capacity concentrated in a handful of states. Without matching grid investment, local communities and industries risk higher tariffs or reduced reliability, echoing utility-rate disputes already seen around U.S. data centers.</p></div>
+      <div class="topic-card"><span class="topic-icon">🌦️</span><h3>Weather-timing risk</h3><p>India's data center expansion is accelerating just as forecasters flag a possible El Niño-driven weak 2026 monsoon — a combination that could sharply increase competition for water precisely when supply is under pressure, with little regulatory infrastructure in place to arbitrate between industrial and public use.</p></div>
+      <div class="topic-card"><span class="topic-icon">🏘️</span><h3>Community friction is already visible</h3><p>In Thane, the WakeUp Thanekars group is demanding a site-specific accounting of Amazon's Balkum facility after officials cited three contradictory water figures. Similar objections have emerged around the Vizag mega-cluster — early signals of the kind of local, town-by-town resistance the Brockovich Data Center project has documented extensively in the U.S.</p></div>
+      <div class="topic-card"><span class="topic-icon">⚖️</span><h3>Equity and displacement dimensions</h3><p>Researchers writing about the Vizag and Bengaluru cases note that communities most exposed to water withdrawal and land acquisition are often lower-income, Dalit, Adivasi and rural populations with the least influence over state-level investment decisions. Land acquisition of several hundred acres per campus raises resettlement, compensation and long-term local employment questions.</p></div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
