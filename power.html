@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link active">Power</a>
+        <a href="water.html" class="nav-link">Water</a>
+        <a href="environment.html" class="nav-link">Environment</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+        <a href="concerns.html" class="nav-link">Concerns</a>
+        <a href="scaling.html" class="nav-link">Scaling</a>
+        <a href="outcomes.html" class="nav-link">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400 mb-4">⚡ Power</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">India's Total Power Generation Capacity</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">Before judging whether data centers are a big deal for India's grid, here is the full national picture: how much power India generates today, from what sources, and how a fast-growing AI data-center sector compares against that total.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" id="power-context-stats"></div>
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
+        <p>As of March 2026, India's <strong>total installed power generation capacity is 533 GW</strong>, built from coal (229 GW, 43%), solar (150 GW, 28%), wind (56 GW, 11%), large hydro (51 GW, 10%), nuclear (9 GW, 2%) and smaller sources like bio-energy and small hydro making up the rest. The country generated <strong>~1,846 TWh (billion units) of electricity</strong> in FY 2025-26.</p>
+        <p>Non-fossil sources crossed <strong>50% of installed capacity in June 2025</strong>, years ahead of India's 2030 NDC climate target — a genuinely fast clean-energy transition. The Ministry of Power's National Electricity Plan projects total capacity reaching <strong>874 GW by 2031-32</strong> and <strong>1,121 GW by 2035-36</strong>, with non-fossil sources expected to reach ~70% of that mix.</p>
+        <p>Against this backdrop, India's data centers currently draw about <strong>1.9 GW — just 0.36% of national capacity</strong>. Even the full 12 GW pipeline projected for 2030 would be only around <strong>1.4% of India's projected 2031-32 grid</strong>. Nationally, this is a small slice. The real question is not the national percentage but where that new load lands, how fast it arrives relative to grid upgrades, and whether it is matched with genuinely additional renewable capacity rather than diverting clean power away from other users.</p>
+      </div>
+      <div class="chart-card"><canvas id="powerShareChart" height="280"></canvas></div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-16 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">Data Center Power Consumption, In Detail</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">Zooming in from the national picture above to how data centers specifically consume and source power.</p>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
+        <p>India's installed data center capacity has grown from roughly <strong>778 MW in FY23</strong> to <strong>~1.9 GW in FY26</strong> — more than doubling in three years. Industry trackers now put the near-term pipeline at a further <strong>4.5 GW over the next five years</strong>, with long-range projections from Adani and independent analysts pointing to <strong>~12 GW by 2030</strong>, roughly a 6x increase from today.</p>
+        <p>For scale: a single 1 GW AI campus (like the ones planned by Reliance and Google in Visakhapatnam) draws roughly as much continuous power as a mid-sized Indian city. Multiply that across the more than a dozen gigawatt-scale projects now announced — Adani (2 GW → 5 GW), Reliance (1.5 GW Vizag + 168 MW Jamnagar), Google (1 GW), Microsoft ($17.5B across Hyderabad/Pune) and AWS ($48B cumulative across Mumbai/Hyderabad/Navi Mumbai) — and the scale of new demand on India's grid becomes clear.</p>
+        <p>On efficiency, the picture is more positive: top Indian operators report Power Usage Effectiveness (PUE) below 1.5, in line with global best practice, and roughly <strong>50% of installed capacity is now paired with renewable power</strong> — solar, wind or captive renewable-plus-storage setups, as in Reliance's Vizag cluster and Adani's integrated energy-and-compute platform. Even so, 25-30% of existing capacity is considered under-specified for dense AI/GPU workloads and will need power and cooling retrofits.</p>
+        <p>About 90% of current capacity is concentrated in just four metros — Mumbai, Chennai, Delhi NCR and Bengaluru — putting concentrated new load on regional grids that were not originally sized for gigawatt-scale, 24/7 industrial compute demand. Hyderabad, Pune and Visakhapatnam are the fastest-growing "Tier II" hubs absorbing the overflow.</p>
+        <p>Unlike traditional industrial loads that fluctuate with shifts and seasons, AI training and inference clusters draw power around the clock at near-constant utilization, which is precisely why hyperscalers are pairing new campuses with dedicated generation rather than relying solely on the public grid. Reliance's Vizag cluster and Adani's platform both bundle captive solar, wind and battery storage directly into the data center build — in effect, India's AI boom is quietly becoming one of the country's largest private drivers of new renewable-plus-storage capacity, independent of any AI-specific policy mandate.</p>
+      </div>
+      <div class="chart-card">
+        <canvas id="powerChart" height="280"></canvas>
+        <p class="text-sm text-gray-400 mt-2">Actual figures FY23-FY26 (KPMG, industry trackers); FY27-FY30 are projections synthesized from Adani's roadmap and sector growth trends. Treat post-2026 figures as directional.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
