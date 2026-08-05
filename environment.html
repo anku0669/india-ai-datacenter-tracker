@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Environment — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link">Power</a>
+        <a href="water.html" class="nav-link">Water</a>
+        <a href="environment.html" class="nav-link active">Environment</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+        <a href="concerns.html" class="nav-link">Concerns</a>
+        <a href="scaling.html" class="nav-link">Scaling</a>
+        <a href="outcomes.html" class="nav-link">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-4">🌎 Environment</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">Environmental Concerns Beyond Power &amp; Water</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">Power and water get most of the attention, but a gigawatt-scale build-out touches land, air, biodiversity and the waste stream too. Each concern below is distinct enough to warrant its own scrutiny.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card"><span class="topic-icon">🌫️</span><h3>Carbon emissions tied to the grid mix</h3><p>Coal still supplies 43% of India's installed power capacity. A data center plugged into the public grid without a dedicated renewable-plus-storage contract inherits that carbon intensity. Even with ~50% non-fossil capacity nationally, actual generation still leans on thermal plants during peak and non-solar hours — exactly when 24/7 AI compute needs power most.</p></div>
+      <div class="topic-card"><span class="topic-icon">🔋</span><h3>Diesel backup generators: air &amp; noise pollution</h3><p>Nearly all large data centers run diesel generators for backup power. These emit particulate matter and NOx during testing and outages, and constant cooling-system and generator noise has been a recurring nuisance complaint near U.S. facilities — a pattern regulators expect to repeat in dense Indian metros as campuses scale up.</p></div>
+      <div class="topic-card"><span class="topic-icon">🏗️</span><h3>Land use, deforestation &amp; local ecosystems</h3><p>Individual campuses run 250-935+ acres (Odisha's proposed Adani site, Reliance's Vizag land allocation). At gigawatt scale this means significant conversion of agricultural, coastal or forested land, with associated topsoil loss, habitat fragmentation, and reduced natural groundwater recharge from paved, impervious surfaces.</p></div>
+      <div class="topic-card"><span class="topic-icon">🐟</span><h3>Coastal &amp; marine impact from desalination</h3><p>Desalinated seawater cooling (Jamnagar, planned for Vizag) solves the freshwater problem but creates a new one: concentrated brine discharge back into coastal waters can raise local salinity and harm marine ecosystems if not carefully managed and monitored — a trade-off regulators have not yet built clear rules around.</p></div>
+      <div class="topic-card"><span class="topic-icon">♻️</span><h3>E-waste from rapid hardware refresh cycles</h3><p>AI-optimized GPU hardware is refreshed far more frequently than traditional enterprise IT — often every 2-3 years versus 5-7. A sector scaling from 1.9 GW to 12+ GW implies a proportional surge in decommissioned servers, GPUs and networking gear, and India currently lacks data-center-specific e-waste recycling mandates.</p></div>
+      <div class="topic-card"><span class="topic-icon">🌡️</span><h3>Localized heat island effects</h3><p>Dense clusters of always-on cooling equipment raise ambient temperature in their immediate vicinity, compounding urban heat-island effects already present in metros like Mumbai, Chennai and Hyderabad — a second-order climate burden that falls on nearby residents, not the operator.</p></div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
