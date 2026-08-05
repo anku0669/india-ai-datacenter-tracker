@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaling Up — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link">Power</a>
+        <a href="water.html" class="nav-link">Water</a>
+        <a href="environment.html" class="nav-link">Environment</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+        <a href="concerns.html" class="nav-link">Concerns</a>
+        <a href="scaling.html" class="nav-link active">Scaling</a>
+        <a href="outcomes.html" class="nav-link">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-4">📈 Scaling Up</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">If India Builds Even More Data Centers: The Cons</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">The current 12 GW pipeline is not the ceiling — analysts project India could reach 20-30+ GW beyond 2030 if AI demand keeps compounding. Here is what continued, larger-scale expansion specifically risks, on top of the current-pipeline concerns.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card"><span class="topic-icon">🏭</span><h3>Renewable buildout may not keep pace</h3><p>If data center demand outgrows new renewable capacity additions, operators and grid operators will lean harder on coal and gas to fill the gap — especially during non-solar hours, since AI workloads run 24/7. That would quietly undo some of the climate gains from India's 50%+ non-fossil capacity milestone.</p></div>
+      <div class="topic-card"><span class="topic-icon">🌾</span><h3>Direct competition with agriculture over water</h3><p>Agriculture already uses ~80% of India's water. Even a small proportional increase in industrial water demand concentrated in specific irrigation-dependent basins could tip local water balances, particularly during weak-monsoon years, directly affecting farmer livelihoods and food security in those districts.</p></div>
+      <div class="topic-card"><span class="topic-icon">🏚️</span><h3>Escalating land acquisition and displacement</h3><p>Scaling from ~10 major hub sites today to dozens more implies proportionally larger and more frequent land acquisitions — likely pushing further into agricultural, coastal, and semi-forested land as the best-connected urban sites are exhausted, raising the scale of displacement and compensation disputes.</p></div>
+      <div class="topic-card"><span class="topic-icon">📉</span><h3>Stranded-asset and overbuild risk</h3><p>Much of the announced pipeline assumes AI compute demand keeps compounding at current rates. If global AI investment cools or shifts to more efficient models needing less raw compute, India could be left with expensive, underutilized gigawatt campuses, dedicated power plants, and desalination infrastructure built on now-outdated demand forecasts.</p></div>
+      <div class="topic-card"><span class="topic-icon">🌐</span><h3>Deepening import dependence on chips &amp; hardware</h3><p>India has limited domestic capacity to manufacture the advanced GPUs and networking silicon these campuses require. A larger build-out means a larger recurring import bill and greater exposure to global chip-supply shocks and export-control policy shifts from chip-producing countries.</p></div>
+      <div class="topic-card"><span class="topic-icon">🧾</span><h3>Regulatory scramble outpaced by construction speed</h3><p>Facilities are being approved and built faster than water-stress mapping, environmental clearance rules, or disclosure standards are being written. Each additional gigawatt built before those rules exist makes retrofitting standards onto already-operating campuses harder and more expensive later.</p></div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
