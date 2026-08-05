@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>India Data Center Tracker — Live AI Infrastructure Map</title>
-  <meta name="description" content="A live, independent tracker of AI and hyperscale data centers across India — capacity, power draw, water consumption, and community impact.">
+  <meta name="description" content="A live, independent tracker of AI and hyperscale data centers across India — capacity, power draw, water consumption, national context, and community impact.">
   <script
     src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js"
     integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT"
@@ -24,10 +24,10 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="min-h-dvh text-sm antialiased bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+<body class="min-h-dvh text-base antialiased bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
 
   <!-- Top banner -->
-  <div class="bg-orange-600 text-white text-center text-xs sm:text-sm py-2 px-3">
+  <div class="bg-orange-600 text-white text-center text-sm py-2.5 px-3">
     🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures, government filings &amp; investigative reporting — see <a href="#references" class="underline font-medium">References</a>
   </div>
 
@@ -39,31 +39,35 @@
         <span class="font-bold text-lg">India Data Center Tracker</span>
       </div>
       <div class="flex flex-wrap gap-4 text-sm">
+        <a href="#national-power" class="hover:text-orange-600">Power (National)</a>
+        <a href="#national-water" class="hover:text-orange-600">Water (National)</a>
         <a href="#map-section" class="hover:text-orange-600">Live Map</a>
         <a href="#hubs" class="hover:text-orange-600">Hubs</a>
-        <a href="#power">Power</a>
-        <a href="#water">Water</a>
+        <a href="#environment" class="hover:text-orange-600">Environment</a>
         <a href="#benefits">Benefits</a>
         <a href="#concerns">Concerns</a>
+        <a href="#scaling-cons">Scaling Up</a>
+        <a href="#outcomes">Outcomes</a>
         <a href="#references">References</a>
       </div>
     </nav>
   </header>
 
   <!-- Hero -->
-  <section class="max-w-6xl mx-auto px-4 pt-10 pb-8">
+  <section class="max-w-6xl mx-auto px-4 pt-12 pb-10">
     <div class="flex flex-col md:flex-row gap-8 items-start">
       <div class="flex-1">
-        <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-5">
           India's AI Data Center Boom — Tracked Live
         </h1>
-        <p class="text-base text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
           India is in the middle of the largest data-center build-out in its history. Hyperscalers, conglomerates and
           state governments have announced well over <strong>US $150 billion</strong> in new AI infrastructure since
           2025 — from Reliance's 1.5 GW cluster in Visakhapatnam to Adani's US $100 billion, 2035 roadmap. This page
-          tracks where that capacity is landing, how much power and water it consumes, and who bears the cost.
+          tracks where that capacity is landing, how much power and water it consumes against India's total national
+          resources, what happens if the country keeps building, and who bears the cost.
         </p>
-        <p class="text-sm text-gray-500 dark:text-gray-400">
+        <p class="text-base text-gray-500 dark:text-gray-400">
           Inspired by and modeled after the U.S. community-awareness project
           <a href="https://www.brockovichdatacenter.com/" target="_blank" rel="noopener" class="underline hover:text-orange-600">Brockovich Data Center Reporting</a>,
           which maps AI data centers and citizen concerns across the United States. This is an independent, India-focused
@@ -73,13 +77,13 @@
     </div>
 
     <!-- Stats bar -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8" id="stats-bar"></div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10" id="stats-bar"></div>
   </section>
 
   <!-- About / Methodology -->
-  <section class="max-w-6xl mx-auto px-4 py-8 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-xl font-bold mb-3">About This Tracker</h2>
-    <div class="grid md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
+  <section class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-4">About This Tracker</h2>
+    <div class="grid md:grid-cols-2 gap-8 text-gray-700 dark:text-gray-300 leading-relaxed text-base">
       <p>
         This page is an independent, open-source effort to do for India what the Brockovich Data Center Reporting
         project has done for the United States: put the scattered, hard-to-find facts about AI infrastructure —
@@ -90,36 +94,113 @@
       </p>
       <p>
         <strong>Methodology:</strong> every figure on this page is sourced from public disclosures — company press
-        releases, stock-exchange filings, sector reports from KPMG and SBI, state government incentive notifications,
-        and investigative journalism from outlets including Down To Earth, Eco-Business, Scroll.in and The Hindu
-        BusinessLine. Where sources disagree (which happens often, especially on water use), this page states the
-        range and cites both figures rather than picking one. Every hub card and map marker lists its source inline.
-        The dataset is maintained as plain, human-readable code (<code>data.js</code>) on GitHub, so anyone can audit,
-        fork, or submit a correction.
+        releases, stock-exchange filings, sector reports from KPMG and SBI, Ministry of Power / CEA data, Central
+        Water Commission assessments, state government incentive notifications, and investigative journalism from
+        outlets including Down To Earth, Eco-Business, Scroll.in and The Hindu BusinessLine. Where sources disagree
+        (which happens often, especially on water use), this page states the range and cites both figures rather than
+        picking one. The dataset is maintained as plain, human-readable code (<code>data.js</code>) on GitHub, so
+        anyone can audit, fork, or submit a correction.
       </p>
     </div>
   </section>
 
+  <!-- NATIONAL POWER CONTEXT -->
+  <section id="national-power" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">⚡ India's Total Power Generation Capacity</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">
+      Before judging whether data centers are a big deal for India's grid, here is the full national picture:
+      how much power India generates today, from what sources, and how a fast-growing AI data-center sector
+      compares against that total.
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" id="power-context-stats"></div>
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
+        <p>
+          As of March 2026, India's <strong>total installed power generation capacity is 533 GW</strong>, built from
+          coal (229 GW, 43%), solar (150 GW, 28%), wind (56 GW, 11%), large hydro (51 GW, 10%), nuclear (9 GW, 2%)
+          and smaller sources like bio-energy and small hydro making up the rest. The country generated
+          <strong>~1,846 TWh (billion units) of electricity</strong> in FY 2025-26.
+        </p>
+        <p>
+          Non-fossil sources crossed <strong>50% of installed capacity in June 2025</strong>, years ahead of India's
+          2030 NDC climate target — a genuinely fast clean-energy transition. The Ministry of Power's National
+          Electricity Plan projects total capacity reaching <strong>874 GW by 2031-32</strong> and
+          <strong>1,121 GW by 2035-36</strong>, with non-fossil sources expected to reach ~70% of that mix.
+        </p>
+        <p>
+          Against this backdrop, India's data centers currently draw about <strong>1.9 GW — just 0.36% of national
+          capacity</strong>. Even the full 12 GW pipeline projected for 2030 would be only around
+          <strong>1.4% of India's projected 2031-32 grid</strong>. Nationally, this is a small slice. The real
+          question — covered in the sections below — is not the national percentage but where that new load lands,
+          how fast it arrives relative to grid upgrades, and whether it is matched with genuinely additional
+          renewable capacity rather than diverting clean power away from other users.
+        </p>
+      </div>
+      <div>
+        <canvas id="powerShareChart" height="280"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- NATIONAL WATER CONTEXT -->
+  <section id="national-water" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">💧 India's Total Water Resources</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">
+      The same national-vs-local logic applies to water. Here is how much water India actually has, how much of it
+      is usable, and how that compares to what data centers draw today and could draw by 2030.
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" id="water-context-stats"></div>
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div>
+        <canvas id="waterShareChart" height="280"></canvas>
+      </div>
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
+        <p>
+          India's <strong>total average annual water resources are about 2,116 billion cubic meters (BCM)</strong>,
+          per the Central Water Commission's 2024 assessment (updated from an earlier 1,999 BCM estimate, largely by
+          including more trans-boundary river-basin water). Of that, only around <strong>1,123 BCM is realistically
+          utilizable</strong> — 690 BCM from surface water and 433 BCM from replenishable groundwater — because the
+          rest is lost to evaporation, flows to the sea, or is inaccessible.
+        </p>
+        <p>
+          Because most of India's rain falls in a three-month monsoon window and population has grown steadily,
+          <strong>per-capita water availability has fallen to about 1,513 cubic meters per year</strong> — below the
+          internationally recognized <strong>"water-stressed" threshold of 1,700 m³</strong> (and edging toward the
+          1,000 m³ "water-scarce" line). Agriculture alone consumes roughly <strong>80% of India's total water
+          use</strong>, dwarfing every other sector combined.
+        </p>
+        <p>
+          Data centers, by contrast, are estimated to use about <strong>150 billion litres (0.15 BCM) nationally in
+          2025 — roughly 0.007% of India's total water resources</strong>, rising to an estimated 358 billion litres
+          (~0.36 BCM, ~0.017%) by 2030. At the national level this is a rounding error. The problem, again, is
+          concentration: most of that draw lands in a handful of already-stressed river basins and cities
+          (Bengaluru, Hyderabad, Chennai, Thane), not spread evenly across the country's water surplus regions like
+          the Brahmaputra or Ganga basins.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- Map section -->
-  <section id="map-section" class="max-w-6xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-2">Live Map of Indian Data Center Hubs</h2>
-    <p class="text-gray-600 dark:text-gray-400 mb-4 max-w-3xl">
+  <section id="map-section" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">🗺️ Live Map of Indian Data Center Hubs</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-5 max-w-3xl text-lg">
       Operational, under-construction and planned data center hubs across India. Click any marker for capacity,
       operators, investment size and sourcing. Marker color shows build status.
     </p>
-    <div class="flex gap-4 flex-wrap text-xs mb-3">
+    <div class="flex gap-4 flex-wrap text-sm mb-4">
       <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block" style="background:#16a34a"></span> Operational</span>
       <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block" style="background:#f59e0b"></span> Under Construction</span>
       <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block" style="background:#dc2626"></span> Planned / Proposed</span>
     </div>
-    <div id="map" class="w-full rounded-lg border border-gray-200 dark:border-gray-800" style="height:480px;"></div>
-    <p class="text-xs text-gray-400 mt-2">Map tiles © OpenStreetMap contributors, © CARTO · Data last updated: <span id="last-updated"></span></p>
+    <div id="map" class="w-full rounded-lg border border-gray-200 dark:border-gray-800" style="height:520px;"></div>
+    <p class="text-sm text-gray-400 mt-2">Map tiles © OpenStreetMap contributors, © CARTO · Data last updated: <span id="last-updated"></span></p>
   </section>
 
   <!-- Hubs table -->
-  <section id="hubs" class="max-w-6xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-2">Major Hubs, Facilities &amp; Announced Projects</h2>
-    <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-3xl">
+  <section id="hubs" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">🏢 Major Hubs, Facilities &amp; Announced Projects</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">
       Ten hubs currently account for the overwhelming majority of India's live and pipeline data center capacity.
       Each card below summarizes operators, capacity and the specific environmental or community issue tied to that site.
     </p>
@@ -127,9 +208,9 @@
   </section>
 
   <!-- Timeline -->
-  <section class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">🗓️ Timeline of Major Announcements (2025-2026)</h2>
-    <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm space-y-3 max-w-4xl">
+  <section class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">🗓️ Timeline of Major Announcements (2025-2026)</h2>
+    <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4 max-w-4xl">
       <p><strong>Early 2025 —</strong> AWS commits $8.3 billion to expand its Mumbai region, adding to India's existing hyperscale base and signaling the start of an accelerated multi-year investment cycle.</p>
       <p><strong>December 2025 —</strong> AWS pledges an additional $7 billion for Hyderabad; Microsoft announces a $17.5 billion AI infrastructure investment spanning Hyderabad and Pune. Within weeks, the scale of committed hyperscaler capital in India roughly doubles.</p>
       <p><strong>Early-to-mid 2026 —</strong> AWS discloses a $430 million data center near Navi Mumbai (Taloja) and pledges a further $13 billion through 2030, bringing its cumulative India commitment to roughly $48 billion. Google announces a $15 billion, 1 GW campus in Visakhapatnam alongside three new subsea cable systems.</p>
@@ -139,11 +220,12 @@
     </div>
   </section>
 
-  <!-- Power section -->
-  <section id="power" class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">⚡ Power Consumption: From 0.78 GW to a Projected 12 GW</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+  <!-- Power section (data-center specific) -->
+  <section id="power" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">⚡ Data Center Power Consumption, In Detail</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">Zooming in from the national picture above to how data centers specifically consume and source power.</p>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
         <p>
           India's installed data center capacity has grown from roughly <strong>778 MW in FY23</strong> to
           <strong>~1.9 GW in FY26</strong> — more than doubling in three years. Industry trackers now put the
@@ -181,21 +263,22 @@
         </p>
       </div>
       <div>
-        <canvas id="powerChart" height="260"></canvas>
-        <p class="text-xs text-gray-400 mt-2">Actual figures FY23-FY26 (KPMG, industry trackers); FY27-FY30 are projections synthesized from Adani's roadmap and sector growth trends. Treat post-2026 figures as directional.</p>
+        <canvas id="powerChart" height="280"></canvas>
+        <p class="text-sm text-gray-400 mt-2">Actual figures FY23-FY26 (KPMG, industry trackers); FY27-FY30 are projections synthesized from Adani's roadmap and sector growth trends. Treat post-2026 figures as directional.</p>
       </div>
     </div>
   </section>
 
-  <!-- Water section -->
-  <section id="water" class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">💧 Water Consumption: The Least-Disclosed Number</h2>
-    <div class="grid md:grid-cols-2 gap-8">
+  <!-- Water section (data-center specific) -->
+  <section id="water" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">💧 Data Center Water Consumption, In Detail</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">The least-disclosed number in the entire sector — zooming in on how, where, and how much data centers actually draw.</p>
+    <div class="grid md:grid-cols-2 gap-10">
       <div>
-        <canvas id="waterChart" height="260"></canvas>
-        <p class="text-xs text-gray-400 mt-2">National data center water-use estimates. 2025 figure and 2030 projection per Eco-Business reporting; interim years interpolated to match the capacity growth curve.</p>
+        <canvas id="waterChart" height="280"></canvas>
+        <p class="text-sm text-gray-400 mt-2">National data center water-use estimates. 2025 figure and 2030 projection per Eco-Business reporting; interim years interpolated to match the capacity growth curve.</p>
       </div>
-      <div class="text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
         <p>
           Most Indian data centers still rely on <strong>evaporative cooling</strong>, which is cheap and energy-efficient
           but consumes large volumes of fresh water. One widely cited estimate from Karnataka puts consumption at
@@ -203,22 +286,10 @@
           that alone implies tens of billions of litres a year before the current expansion wave is even counted.
         </p>
         <p>
-          Independent estimates suggest India's data centers drew about <strong>150 billion litres of water in 2025</strong>,
-          a figure projected to more than double to roughly <strong>358 billion litres by 2030</strong> as gigawatt-scale
-          campuses come online. A single 100 MW facility using evaporative cooling can consume on the order of
-          <strong>2 million litres per day</strong>.
-        </p>
-        <p>
           The geography is the real concern: an estimated <strong>75% of India's data centers sit in water-stressed
           regions</strong>, and a WRI India mapping exercise found more than half of facilities in areas already
           competing for scarce municipal and agricultural water. Bengaluru, Hyderabad and Chennai — three of India's
           top data-center hubs — are also three cities that regularly face acute water shortages.
-        </p>
-        <p>
-          Nationally, data centers use a small share of India's total electricity (about 0.5% in 2025) and an even
-          smaller share of total water withdrawal (roughly 0.02-0.03%) — but national averages hide the local reality.
-          Withdrawing municipal or groundwater at industrial scale in a single water-stressed district can create real
-          competition with residential and agricultural users, regardless of the national percentage.
         </p>
         <p>
           Transparency is a persistent problem. A Down To Earth investigation of six major operators — Nxtra by Airtel,
@@ -242,148 +313,231 @@
     </div>
   </section>
 
-  <!-- Benefits -->
-  <section id="benefits" class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">✅ Why This Build-Out Is Good for India</h2>
-    <div class="grid md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-      <div class="space-y-3">
-        <h3 class="font-semibold text-lg">Digital sovereignty &amp; strategic autonomy</h3>
-        <p>
-          Hosting AI compute domestically means Indian companies, startups and government agencies can run sensitive
-          workloads — health records, financial data, defense-adjacent research — without depending entirely on
-          foreign infrastructure. Adani's platform explicitly reserves GPU capacity for Indian startups, research
-          institutions and deep-tech ventures, and frames the effort as part of a national "five-layer AI stack"
-          (applications, models, chips, energy, data centers).
-        </p>
-        <h3 class="font-semibold text-lg">Direct and induced investment</h3>
-        <p>
-          The announced pipeline — Adani's $100B, AWS's cumulative $48B, Microsoft's $17.5B, Google's $15B, and
-          Reliance's roughly $17B+ Vizag cluster — represents one of the largest waves of foreign and domestic capital
-          expenditure in India's infrastructure history, comparable in scale to major power or telecom build-outs of
-          the past two decades.
-        </p>
+  <!-- ENVIRONMENTAL CONCERNS (beyond power & water) -->
+  <section id="environment" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">🌎 Environmental Concerns Beyond Power &amp; Water</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">
+      Power and water get most of the attention, but a gigawatt-scale build-out touches land, air, biodiversity and
+      the waste stream too. Each concern below is distinct enough to warrant its own scrutiny.
+    </p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card">
+        <span class="topic-icon">🌫️</span>
+        <h3>Carbon emissions tied to the grid mix</h3>
+        <p>Coal still supplies 43% of India's installed power capacity. A data center plugged into the public grid without a dedicated renewable-plus-storage contract inherits that carbon intensity. Even with ~50% non-fossil capacity nationally, actual generation still leans on thermal plants during peak and non-solar hours — exactly when 24/7 AI compute needs power most.</p>
       </div>
-      <div class="space-y-3">
-        <h3 class="font-semibold text-lg">Jobs, skills and downstream industry</h3>
-        <p>
-          Gigawatt-scale campuses require construction labor, skilled electrical and cooling technicians, cybersecurity
-          and network operations staff, and an ecosystem of ancillary suppliers (fiber, power equipment, modular
-          construction). State governments in Telangana, Andhra Pradesh and Odisha are explicitly using data center
-          incentives (stamp-duty waivers, GST reimbursement, dedicated power tariffs) to diversify their industrial base
-          beyond traditional manufacturing.
-        </p>
-        <h3 class="font-semibold text-lg">Renewable energy as a forcing function</h3>
-        <p>
-          Because hyperscalers increasingly demand round-the-clock clean power, several of the largest projects —
-          Reliance's Vizag cluster, Adani's integrated energy-compute platform — are bundling gigawatt-scale solar,
-          wind and battery storage directly into the data center build. This is accelerating renewable capacity
-          additions and grid-storage investment that India needs regardless of AI demand.
-        </p>
+      <div class="topic-card">
+        <span class="topic-icon">🔋</span>
+        <h3>Diesel backup generators: air &amp; noise pollution</h3>
+        <p>Nearly all large data centers run diesel generators for backup power. These emit particulate matter and NOx during testing and outages, and constant cooling-system and generator noise has been a recurring nuisance complaint near U.S. facilities — a pattern regulators expect to repeat in dense Indian metros as campuses scale up.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🏗️</span>
+        <h3>Land use, deforestation &amp; local ecosystems</h3>
+        <p>Individual campuses run 250-935+ acres (Odisha's proposed Adani site, Reliance's Vizag land allocation). At gigawatt scale this means significant conversion of agricultural, coastal or forested land, with associated topsoil loss, habitat fragmentation, and reduced natural groundwater recharge from paved, impervious surfaces.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🐟</span>
+        <h3>Coastal &amp; marine impact from desalination</h3>
+        <p>Desalinated seawater cooling (Jamnagar, planned for Vizag) solves the freshwater problem but creates a new one: concentrated brine discharge back into coastal waters can raise local salinity and harm marine ecosystems if not carefully managed and monitored — a trade-off regulators have not yet built clear rules around.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">♻️</span>
+        <h3>E-waste from rapid hardware refresh cycles</h3>
+        <p>AI-optimized GPU hardware is refreshed far more frequently than traditional enterprise IT — often every 2-3 years versus 5-7. A sector scaling from 1.9 GW to 12+ GW implies a proportional surge in decommissioned servers, GPUs and networking gear, and India currently lacks data-center-specific e-waste recycling mandates.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🌡️</span>
+        <h3>Localized heat island effects</h3>
+        <p>Dense clusters of always-on cooling equipment raise ambient temperature in their immediate vicinity, compounding urban heat-island effects already present in metros like Mumbai, Chennai and Hyderabad — a second-order climate burden that falls on nearby residents, not the operator.</p>
       </div>
     </div>
-    <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl">
-      Better cooling economics are also emerging: Reliance's Jamnagar facility with Meta uses desalinated seawater
-      instead of freshwater, and the broader industry trend toward closed-loop cooling (versus water-hungry
-      evaporative systems) shows the sector responding, at least partially, to public pressure and cost incentives.
-    </p>
-    <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl">
-      There is also a broader digital-economy multiplier effect. Domestic AI compute lowers the cost and latency of
-      building Indian-language models, government e-governance platforms (from Aadhaar-linked services to UPI-scale
-      transaction processing), and startup products that would otherwise depend on renting capacity from data centers
-      overseas. Adani's platform explicitly frames its GPU reservation for Indian startups and research institutions
-      as part of keeping AI value-creation — not just AI compute cost — inside the country. If even a fraction of the
-      announced $150 billion-plus pipeline converts into operating facilities on schedule, India would move from a
-      minor player to a top-five global hub for AI infrastructure within this decade.
-    </p>
+  </section>
+
+  <!-- Benefits -->
+  <section id="benefits" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">✅ Why This Build-Out Is Good for India</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">The upside case, broken into its distinct parts.</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card">
+        <span class="topic-icon">🛡️</span>
+        <h3>Digital sovereignty &amp; strategic autonomy</h3>
+        <p>Hosting AI compute domestically means Indian companies, startups and government agencies can run sensitive workloads — health records, financial data, defense-adjacent research — without depending entirely on foreign infrastructure. Adani's platform explicitly reserves GPU capacity for Indian startups, research institutions and deep-tech ventures, framing the effort as part of a national "five-layer AI stack" (applications, models, chips, energy, data centers).</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">💰</span>
+        <h3>Direct and induced investment</h3>
+        <p>The announced pipeline — Adani's $100B, AWS's cumulative $48B, Microsoft's $17.5B, Google's $15B, and Reliance's roughly $17B+ Vizag cluster — represents one of the largest waves of foreign and domestic capital expenditure in India's infrastructure history, comparable in scale to major power or telecom build-outs of the past two decades.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">👷</span>
+        <h3>Jobs, skills and downstream industry</h3>
+        <p>Gigawatt-scale campuses require construction labor, skilled electrical and cooling technicians, cybersecurity and network operations staff, and an ecosystem of ancillary suppliers (fiber, power equipment, modular construction). Telangana, Andhra Pradesh and Odisha are explicitly using data center incentives (stamp-duty waivers, GST reimbursement, dedicated power tariffs) to diversify their industrial base beyond traditional manufacturing.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">☀️</span>
+        <h3>Renewable energy as a forcing function</h3>
+        <p>Because hyperscalers increasingly demand round-the-clock clean power, several of the largest projects — Reliance's Vizag cluster, Adani's integrated energy-compute platform — are bundling gigawatt-scale solar, wind and battery storage directly into the data center build. This is accelerating renewable capacity additions and grid-storage investment that India needs regardless of AI demand.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🚿</span>
+        <h3>Better cooling economics emerging</h3>
+        <p>Reliance's Jamnagar facility with Meta uses desalinated seawater instead of freshwater, and the broader industry trend toward closed-loop cooling (versus water-hungry evaporative systems) shows the sector responding, at least partially, to public pressure and cost incentives.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🚀</span>
+        <h3>A broader digital-economy multiplier</h3>
+        <p>Domestic AI compute lowers the cost and latency of building Indian-language models, government e-governance platforms (from Aadhaar-linked services to UPI-scale transaction processing), and startup products that would otherwise depend on renting capacity from data centers overseas. If even a fraction of the announced $150B+ pipeline converts into operating facilities on schedule, India would move from a minor player to a top-five global hub for AI infrastructure within this decade.</p>
+      </div>
+    </div>
   </section>
 
   <!-- Concerns -->
-  <section id="concerns" class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">⚠️ Why This Build-Out Is a Risk for India</h2>
-    <div class="grid md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-      <div class="space-y-3">
-        <h3 class="font-semibold text-lg">Water stress in already-scarce regions</h3>
-        <p>
-          With three-quarters of facilities sited in water-stressed districts, and cities like Bengaluru, Hyderabad,
-          Chennai and Thane already running below daily municipal demand, large-scale industrial water withdrawal
-          risks deepening shortages for residents, farmers and small businesses — populations, researchers note,
-          that are disproportionately poorer and less able to absorb the cost of scarcity.
-        </p>
-        <h3 class="font-semibold text-lg">Regulatory and disclosure gaps</h3>
-        <p>
-          India currently has <strong>no mandatory water-stress mapping</strong> and no standard thermal or
-          environmental-impact assessment requirement specific to data centers — the sector is classified under
-          IT/ITeS rules, which exempts it from the environmental clearance process applied to other large
-          infrastructure. Lawyers and activists have specifically flagged the approved 1 GW Vizag Mega Data Centre
-          Park and Google's facility there for failing to disclose their water sourcing (groundwater vs. surface
-          water vs. desalinated) at the approval stage.
-        </p>
+  <section id="concerns" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">⚠️ Why This Build-Out Is a Risk for India, Right Now</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">Risks tied to the current, already-announced pipeline — distinct from the further-scaling risks covered later.</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card">
+        <span class="topic-icon">🚱</span>
+        <h3>Water stress in already-scarce regions</h3>
+        <p>With three-quarters of facilities sited in water-stressed districts, and cities like Bengaluru, Hyderabad, Chennai and Thane already running below daily municipal demand, large-scale industrial water withdrawal risks deepening shortages for residents, farmers and small businesses — populations that are disproportionately poorer and less able to absorb the cost of scarcity.</p>
       </div>
-      <div class="space-y-3">
-        <h3 class="font-semibold text-lg">Grid strain and rising electricity costs</h3>
-        <p>
-          A roughly 6x increase in dedicated data center demand by 2030 will require substantial new generation,
-          transmission and substation capacity concentrated in a handful of states. Without matching grid investment,
-          local communities and industries risk higher tariffs or reduced reliability, echoing utility-rate disputes
-          already seen around U.S. data centers.
-        </p>
-        <h3 class="font-semibold text-lg">Weather-timing risk</h3>
-        <p>
-          India's data center expansion is accelerating just as forecasters flag a possible El Niño-driven weak 2026
-          monsoon — a combination that could sharply increase competition for water precisely when supply is under
-          pressure, with little regulatory infrastructure in place to arbitrate between industrial and public use.
-        </p>
+      <div class="topic-card">
+        <span class="topic-icon">📜</span>
+        <h3>Regulatory and disclosure gaps</h3>
+        <p>India currently has <strong>no mandatory water-stress mapping</strong> and no standard thermal or environmental-impact assessment requirement specific to data centers — the sector is classified under IT/ITeS rules, exempting it from the environmental clearance process applied to other large infrastructure. Lawyers and activists have flagged the approved 1 GW Vizag Mega Data Centre Park and Google's facility there for failing to disclose water sourcing at the approval stage.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🔌</span>
+        <h3>Grid strain and rising electricity costs</h3>
+        <p>A roughly 6x increase in dedicated data center demand by 2030 will require substantial new generation, transmission and substation capacity concentrated in a handful of states. Without matching grid investment, local communities and industries risk higher tariffs or reduced reliability, echoing utility-rate disputes already seen around U.S. data centers.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🌦️</span>
+        <h3>Weather-timing risk</h3>
+        <p>India's data center expansion is accelerating just as forecasters flag a possible El Niño-driven weak 2026 monsoon — a combination that could sharply increase competition for water precisely when supply is under pressure, with little regulatory infrastructure in place to arbitrate between industrial and public use.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🏘️</span>
+        <h3>Community friction is already visible</h3>
+        <p>In Thane, the WakeUp Thanekars group is demanding a site-specific accounting of Amazon's Balkum facility after officials cited three contradictory water figures. Similar objections have emerged around the Vizag mega-cluster — early signals of the kind of local, town-by-town resistance the Brockovich Data Center project has documented extensively in the U.S.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">⚖️</span>
+        <h3>Equity and displacement dimensions</h3>
+        <p>Researchers writing about the Vizag and Bengaluru cases note that communities most exposed to water withdrawal and land acquisition are often lower-income, Dalit, Adivasi and rural populations with the least influence over state-level investment decisions. Land acquisition of several hundred acres per campus raises resettlement, compensation and long-term local employment questions.</p>
       </div>
     </div>
-    <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl">
-      Community-level friction has already surfaced: in Thane, the WakeUp Thanekars group is demanding a
-      site-specific accounting of Amazon's Balkum facility after officials cited three contradictory water figures
-      for the same site. Similar objections have emerged around the Vizag mega-cluster. These are early signals of
-      the kind of local, town-by-town resistance that the Brockovich Data Center project has documented extensively
-      in the United States — and a preview of what unmanaged growth could look like in India without better
-      disclosure rules.
+  </section>
+
+  <!-- SCALING-UP CONS -->
+  <section id="scaling-cons" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">📈 If India Builds Even More Data Centers: The Cons</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">
+      The current 12 GW pipeline is not the ceiling — analysts project India could reach 20-30+ GW beyond 2030 if AI
+      demand keeps compounding. Here is what continued, larger-scale expansion specifically risks, on top of the
+      current-pipeline concerns above.
     </p>
-    <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl">
-      There are also equity dimensions specific to India. Researchers writing about the Vizag and Bengaluru cases
-      note that the communities most exposed to water withdrawal and land acquisition for these campuses are often
-      lower-income, Dalit, Adivasi and rural populations who have the least influence over state-level investment
-      decisions and the least capacity to absorb a sudden loss of water access or agricultural land. Land acquisition
-      itself — several hundred acres for a single hyperscale campus — raises additional questions about resettlement,
-      compensation and long-term local employment that are separate from, but connected to, the energy and water
-      debate.
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card">
+        <span class="topic-icon">🏭</span>
+        <h3>Renewable buildout may not keep pace</h3>
+        <p>If data center demand outgrows new renewable capacity additions, operators and grid operators will lean harder on coal and gas to fill the gap — especially during non-solar hours, since AI workloads run 24/7. That would quietly undo some of the climate gains from India's 50%+ non-fossil capacity milestone.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🌾</span>
+        <h3>Direct competition with agriculture over water</h3>
+        <p>Agriculture already uses ~80% of India's water. Even a small proportional increase in industrial water demand concentrated in specific irrigation-dependent basins could tip local water balances, particularly during weak-monsoon years, directly affecting farmer livelihoods and food security in those districts.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🏚️</span>
+        <h3>Escalating land acquisition and displacement</h3>
+        <p>Scaling from ~10 major hub sites today to dozens more implies proportionally larger and more frequent land acquisitions — likely pushing further into agricultural, coastal, and semi-forested land as the best-connected urban sites are exhausted, raising the scale of displacement and compensation disputes.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">📉</span>
+        <h3>Stranded-asset and overbuild risk</h3>
+        <p>Much of the announced pipeline assumes AI compute demand keeps compounding at current rates. If global AI investment cools or shifts to more efficient models needing less raw compute, India could be left with expensive, underutilized gigawatt campuses, dedicated power plants, and desalination infrastructure built on now-outdated demand forecasts.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🌐</span>
+        <h3>Deepening import dependence on chips &amp; hardware</h3>
+        <p>India has limited domestic capacity to manufacture the advanced GPUs and networking silicon these campuses require. A larger build-out means a larger recurring import bill and greater exposure to global chip-supply shocks and export-control policy shifts from chip-producing countries.</p>
+      </div>
+      <div class="topic-card">
+        <span class="topic-icon">🧾</span>
+        <h3>Regulatory scramble outpaced by construction speed</h3>
+        <p>Facilities are being approved and built faster than water-stress mapping, environmental clearance rules, or disclosure standards are being written. Each additional gigawatt built before those rules exist makes retrofitting standards onto already-operating campuses harder and more expensive later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section id="outcomes" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">🔮 Outcomes: Where This Is Headed by 2030</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">
+      Two plausible trajectories, depending largely on whether disclosure rules, water governance and grid planning
+      catch up with the pace of construction.
+    </p>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="outcome-box outcome-good">
+        <h3 class="text-xl font-bold mb-3">🟢 Best-case outcome</h3>
+        <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+          <li>India reaches or exceeds its 12 GW 2030 data center target, largely matched with new dedicated renewable-plus-storage capacity rather than public grid draw.</li>
+          <li>Mandatory water-use disclosure and water-stress mapping become law, closing the ESG gaps documented across Nxtra, AdaniConneX, STT GDC, NTT, CtrlS and Sify.</li>
+          <li>Closed-loop and desalinated cooling become the default for new coastal and water-stressed builds, sharply cutting freshwater withdrawal per MW.</li>
+          <li>India becomes a top-five global AI infrastructure hub, with GPU capacity genuinely reserved for domestic startups and research, strengthening digital sovereignty.</li>
+          <li>Community reporting channels and environmental clearance requirements are extended to data centers, reducing disputes like Thane's before they escalate.</li>
+        </ul>
+      </div>
+      <div class="outcome-box outcome-bad">
+        <h3 class="text-xl font-bold mb-3">🔴 Worst-case outcome</h3>
+        <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+          <li>Construction continues to outpace regulation; more Vizag- and Thane-style disputes emerge over undisclosed water sourcing, with no binding national framework to resolve them.</li>
+          <li>A weak monsoon year collides with peak construction, forcing acute local water-rationing decisions between data centers, farms and households in stressed basins.</li>
+          <li>Renewable additions lag AI power demand, pushing marginal generation back toward coal and eroding India's non-fossil capacity gains.</li>
+          <li>Some announced gigawatt-scale projects stall or scale back if global AI demand cools, leaving stranded land, power purchase agreements and half-built campuses.</li>
+          <li>Public trust erodes as "water-positive" and "carbon-neutral" claims from operators remain unverifiable, fueling the kind of community backlash already visible in the U.S. Brockovich dataset.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-8 text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl text-base">
+      The realistic outcome likely lands somewhere between these two poles, and will vary sharply by state: expect
+      Telangana and Tamil Nadu (with explicit policy frameworks) to trend toward the better-managed outcome faster
+      than newer entrants like Odisha, where rules and precedent are still being written in real time.
     </p>
   </section>
 
   <!-- Community Impact -->
-  <section class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">📰 Community Impact &amp; Local Reactions</h2>
-    <div class="grid md:grid-cols-2 gap-6 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-      <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-        <p class="text-xs text-gray-400 mb-1">Thane, Maharashtra — 2026</p>
-        <h3 class="font-semibold mb-1">Residents challenge Amazon's water-use figures</h3>
+  <section class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">📰 Community Impact &amp; Local Reactions</h2>
+    <div class="grid md:grid-cols-2 gap-6 text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+      <div class="topic-card">
+        <p class="text-sm text-gray-400 mb-1">Thane, Maharashtra — 2026</p>
+        <h3 class="!text-lg">Residents challenge Amazon's water-use figures</h3>
         <p>WakeUp Thanekars, a local residents' group, publicly flagged three different official water-allocation
         numbers for the Balkum data center and demanded Amazon's environmental clearance documents in a city already
         running a daily water deficit. The dispute remains unresolved and has drawn attention from reporters covering
         similar issues in Vizag.</p>
       </div>
-      <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-        <p class="text-xs text-gray-400 mb-1">Visakhapatnam, Andhra Pradesh — 2026</p>
-        <h3 class="font-semibold mb-1">Legal and civil-society pushback on clearances</h3>
+      <div class="topic-card">
+        <p class="text-sm text-gray-400 mb-1">Visakhapatnam, Andhra Pradesh — 2026</p>
+        <h3 class="!text-lg">Legal and civil-society pushback on clearances</h3>
         <p>Lawyers and environmental groups have called for the approved Vizag Mega Data Centre Park and Google's
         adjoining facility to disclose their water sourcing plan (groundwater, surface water or desalinated) before
         proceeding, arguing that treating data centers as generic "IT/ITeS" facilities understates their
         infrastructure-scale resource footprint.</p>
       </div>
-      <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-        <p class="text-xs text-gray-400 mb-1">Karnataka — ongoing</p>
-        <h3 class="font-semibold mb-1">Bengaluru's water stress shapes siting decisions</h3>
+      <div class="topic-card">
+        <p class="text-sm text-gray-400 mb-1">Karnataka — ongoing</p>
+        <h3 class="!text-lg">Bengaluru's water stress shapes siting decisions</h3>
         <p>Bengaluru's recurring municipal water shortages are cited by industry analysts as a reason hyperscale
         growth is increasingly steered toward Hyderabad, Vizag and coastal Andhra Pradesh rather than Karnataka,
         even though Bengaluru remains India's primary technology talent hub.</p>
       </div>
-      <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-        <p class="text-xs text-gray-400 mb-1">National — 2026</p>
-        <h3 class="font-semibold mb-1">Calls for a binding disclosure framework</h3>
+      <div class="topic-card">
+        <p class="text-sm text-gray-400 mb-1">National — 2026</p>
+        <h3 class="!text-lg">Calls for a binding disclosure framework</h3>
         <p>Multiple outlets (Eco-Business, Down To Earth, Scroll.in) have separately called for a national,
         enforceable framework requiring mandatory water-use disclosure, penalties for non-compliance, and
         water-equity assessments as part of environmental clearance — arguing that voluntary ESG reporting has
@@ -393,47 +547,48 @@
   </section>
 
   <!-- Policy gaps -->
-  <section class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">📋 What Regulators &amp; Operators Should Do Next</h2>
-    <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 max-w-4xl leading-relaxed">
+  <section class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">📋 What Regulators &amp; Operators Should Do Next</h2>
+    <ul class="list-disc list-inside space-y-3 text-gray-700 dark:text-gray-300 max-w-4xl leading-relaxed text-base">
       <li>Mandate standardized, comparable, year-over-year water-withdrawal and water-consumption disclosure for every operator, closing the ESG reporting gaps documented across Nxtra, AdaniConneX, STT GDC, NTT, CtrlS and Sify.</li>
       <li>Require water-stress mapping and environmental clearance for data centers above a defined capacity threshold, rather than exempting them under generic IT/ITeS classification.</li>
       <li>Prioritize treated wastewater reuse and non-freshwater cooling (desalinated seawater, closed-loop, air-cooling) over groundwater extraction, especially for facilities in water-stressed districts.</li>
       <li>Extend independent verification to "water-neutral" and "water-positive" corporate claims — current offsetting approaches do not address localized depletion in the specific district where a facility operates.</li>
       <li>Align grid and transmission planning with the multi-gigawatt pipeline now publicly announced, so power costs and reliability for existing residential and industrial users are not degraded.</li>
+      <li>Set e-waste recycling and hardware lifecycle requirements specific to AI/GPU infrastructure, given its faster refresh cycle than traditional IT.</li>
       <li>Give communities a formal channel — similar to the reporting mechanism this page links to — to flag site-specific concerns before and after a facility is approved.</li>
     </ul>
   </section>
 
   <!-- Comparison to US -->
-  <section class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">🌍 India vs. the U.S.: A Comparative Snapshot</h2>
-    <div class="grid md:grid-cols-2 gap-8 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-      <div>
-        <h3 class="font-semibold mb-2">United States (per Brockovich Data Center Reporting, as of July 30, 2026)</h3>
-        <ul class="space-y-1">
+  <section class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">🌍 India vs. the U.S.: A Comparative Snapshot</h2>
+    <div class="grid md:grid-cols-2 gap-8 text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+      <div class="topic-card">
+        <h3>United States (per Brockovich Data Center Reporting, as of July 30, 2026)</h3>
+        <ul class="space-y-1 list-none">
           <li>🟢 33 operational AI/hyperscale data centers tracked</li>
           <li>🟡 66 under construction</li>
           <li>🔴 47 proposed / in pipeline</li>
           <li>📍 8,837 community-reported concern locations nationwide</li>
         </ul>
-        <p class="mt-2">The U.S. project overlays its map with a live NOAA/NDMC drought monitor layer, since many
+        <p class="mt-3">The U.S. project overlays its map with a live NOAA/NDMC drought monitor layer, since many
         proposed sites sit in drought-affected states — a direct parallel to India's water-stressed siting problem.</p>
       </div>
-      <div>
-        <h3 class="font-semibold mb-2">India (this tracker, August 2026)</h3>
-        <ul class="space-y-1">
+      <div class="topic-card">
+        <h3>India (this tracker, August 2026)</h3>
+        <ul class="space-y-1 list-none">
           <li>🟢 ~1.9 GW operational capacity across the hubs tracked here</li>
           <li>🟡 Multiple gigawatt-scale campuses under active construction (Hyderabad, Jamnagar, Pune)</li>
           <li>🔴 ~4.5 GW in the announced 5-year pipeline; ~12 GW projected by 2030</li>
           <li>📍 75% of facilities estimated to sit in water-stressed districts</li>
         </ul>
-        <p class="mt-2">India's build-out is smaller in absolute facility count today but is scaling faster in
+        <p class="mt-3">India's build-out is smaller in absolute facility count today but is scaling faster in
         capacity terms — the jump from 0.78 GW (FY23) to a projected 12 GW (FY30) is roughly a 15x increase in seven
         years, a steeper curve than most Western markets are currently seeing.</p>
       </div>
     </div>
-    <p class="mt-4 text-sm text-gray-600 dark:text-gray-400 max-w-4xl">
+    <p class="mt-6 text-base text-gray-600 dark:text-gray-400 max-w-4xl">
       The two countries share the same core tension: AI infrastructure investment is arriving faster than local
       regulatory frameworks can evaluate its water, power and land impact. In the U.S., that gap has shown up as
       community organizing, utility-rate disputes, and even electoral consequences for local officials perceived as
@@ -445,15 +600,15 @@
   </section>
 
   <!-- References -->
-  <section id="references" class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <h2 class="text-2xl font-bold mb-4">📚 References &amp; Sources</h2>
-    <p class="text-gray-600 dark:text-gray-400 mb-4 max-w-3xl">
+  <section id="references" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">📚 References &amp; Sources</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-5 max-w-3xl text-base">
       This page compiles publicly available data. It is an India-focused adaptation modeled on the
       structure and mission of <a href="https://www.brockovichdatacenter.com/" target="_blank" rel="noopener" class="underline text-orange-600">Brockovich Data Center Reporting</a>,
       the U.S. community-awareness initiative tracking AI data centers nationwide — credit to that project for pioneering this
       map-plus-accountability format.
     </p>
-    <ol class="list-decimal list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+    <ol class="list-decimal list-inside space-y-2 text-base text-gray-700 dark:text-gray-300">
       <li>Brockovich Data Center Reporting — <a class="underline" href="https://www.brockovichdatacenter.com/" target="_blank" rel="noopener">brockovichdatacenter.com</a> (reference model, U.S.)</li>
       <li>KPMG — "India Data Centre Opportunity: From Emerging Demand Hub to Integrated Data Centre Powerhouse" (2026)</li>
       <li>SBI — "Sector Report: Data Centres in India" (2026)</li>
@@ -469,22 +624,27 @@
       <li>Eco-Business — "Whose water is AI drinking in India?"</li>
       <li>Scroll.in — "Water, energy use concerns grow with more India data centres in the pipeline"</li>
       <li>The Hindu BusinessLine — "Thane residents flag discrepancy in Amazon data centre's water consumption requirements"</li>
+      <li>Ministry of Power (Government of India) / Central Electricity Authority — "Power Sector at a Glance", National Generation Adequacy Plan 2035-36</li>
+      <li>Vasudha Foundation — "India's Energy Overview: Yearly Highlights of 2025-26"</li>
+      <li>Central Water Commission — "Assessment of Water Resources of India 2024"; India-WRIS "India's Water Wealth"; PIB releases on water availability</li>
+      <li>UNU-INWEH — "Environmental Cost of Artificial Intelligence: Carbon, Water, and Land Footprints"</li>
+      <li>World Resources Institute — "7 Ways Data Center Growth Is Reshaping Communities" (land, air quality, noise)</li>
     </ol>
   </section>
 
   <!-- Report an issue -->
-  <section id="report" class="max-w-6xl mx-auto px-4 py-10 border-t border-gray-200 dark:border-gray-800">
-    <div class="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900 rounded-lg p-6">
-      <h2 class="text-xl font-bold mb-2">Know a data center project we're missing, or a local concern to flag?</h2>
-      <p class="text-gray-700 dark:text-gray-300 mb-3">
+  <section id="report" class="max-w-6xl mx-auto px-4 py-14 border-t border-gray-200 dark:border-gray-800">
+    <div class="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900 rounded-xl p-8">
+      <h2 class="text-2xl font-bold mb-3">Know a data center project we're missing, or a local concern to flag?</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-4 text-base">
         This tracker is maintained on GitHub as an open dataset. File an issue or pull request with your project,
         location, capacity and source, and it will be reviewed and added.
       </p>
-      <a href="https://github.com/anku0669/india-ai-datacenter-tracker/issues/new" id="repo-link" target="_blank" rel="noopener" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium px-4 py-2 rounded-md text-sm">Open an Issue on GitHub</a>
+      <a href="https://github.com/anku0669/india-ai-datacenter-tracker/issues/new" id="repo-link" target="_blank" rel="noopener" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium px-5 py-2.5 rounded-md text-base">Open an Issue on GitHub</a>
     </div>
   </section>
 
-  <footer class="max-w-6xl mx-auto px-4 py-8 text-xs text-gray-400 border-t border-gray-200 dark:border-gray-800">
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
     <p>India Data Center Tracker — an independent, open-source community awareness project. Not affiliated with any operator, government body, or the Brockovich Data Center Reporting initiative. Data last compiled: <span id="footer-updated"></span>. Figures are best-effort estimates from public sources and may change as disclosures improve — corrections welcome via GitHub.</p>
   </footer>
 
