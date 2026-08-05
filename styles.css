@@ -1,0 +1,73 @@
+/* India Data Center Tracker — supplemental styles (Tailwind handles most utility styling) */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.hub-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.1rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+html.dark .hub-card {
+  border-color: #1f2937;
+  background: #0b0f19;
+}
+
+.hub-card .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.status-operational { background: #dcfce7; color: #166534; }
+.status-construction { background: #fef3c7; color: #92400e; }
+.status-planned { background: #fee2e2; color: #991b1b; }
+
+html.dark .status-operational { background: #052e1a; color: #4ade80; }
+html.dark .status-construction { background: #3a2a04; color: #fbbf24; }
+html.dark .status-planned { background: #3a0a0a; color: #f87171; }
+
+.stat-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  background: #fafafa;
+}
+
+html.dark .stat-card {
+  border-color: #1f2937;
+  background: #0b0f19;
+}
+
+.stat-card .stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat-card .stat-label {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.leaflet-popup-content { font-size: 0.8rem; line-height: 1.4; }
+.leaflet-popup-content b { display: block; margin-bottom: 2px; }
+
+.table-wrapper { overflow-x: auto; }
