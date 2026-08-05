@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Benefits — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link">Power</a>
+        <a href="water.html" class="nav-link">Water</a>
+        <a href="environment.html" class="nav-link">Environment</a>
+        <a href="benefits.html" class="nav-link active">Benefits</a>
+        <a href="concerns.html" class="nav-link">Concerns</a>
+        <a href="scaling.html" class="nav-link">Scaling</a>
+        <a href="outcomes.html" class="nav-link">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-4">✅ Benefits</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">Why This Build-Out Is Good for India</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">The upside case, broken into its distinct parts.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="topic-card"><span class="topic-icon">🛡️</span><h3>Digital sovereignty &amp; strategic autonomy</h3><p>Hosting AI compute domestically means Indian companies, startups and government agencies can run sensitive workloads — health records, financial data, defense-adjacent research — without depending entirely on foreign infrastructure. Adani's platform explicitly reserves GPU capacity for Indian startups, research institutions and deep-tech ventures, framing the effort as part of a national "five-layer AI stack" (applications, models, chips, energy, data centers).</p></div>
+      <div class="topic-card"><span class="topic-icon">💰</span><h3>Direct and induced investment</h3><p>The announced pipeline — Adani's $100B, AWS's cumulative $48B, Microsoft's $17.5B, Google's $15B, and Reliance's roughly $17B+ Vizag cluster — represents one of the largest waves of foreign and domestic capital expenditure in India's infrastructure history, comparable in scale to major power or telecom build-outs of the past two decades.</p></div>
+      <div class="topic-card"><span class="topic-icon">👷</span><h3>Jobs, skills and downstream industry</h3><p>Gigawatt-scale campuses require construction labor, skilled electrical and cooling technicians, cybersecurity and network operations staff, and an ecosystem of ancillary suppliers (fiber, power equipment, modular construction). Telangana, Andhra Pradesh and Odisha are explicitly using data center incentives (stamp-duty waivers, GST reimbursement, dedicated power tariffs) to diversify their industrial base beyond traditional manufacturing.</p></div>
+      <div class="topic-card"><span class="topic-icon">☀️</span><h3>Renewable energy as a forcing function</h3><p>Because hyperscalers increasingly demand round-the-clock clean power, several of the largest projects — Reliance's Vizag cluster, Adani's integrated energy-compute platform — are bundling gigawatt-scale solar, wind and battery storage directly into the data center build. This is accelerating renewable capacity additions and grid-storage investment that India needs regardless of AI demand.</p></div>
+      <div class="topic-card"><span class="topic-icon">🚿</span><h3>Better cooling economics emerging</h3><p>Reliance's Jamnagar facility with Meta uses desalinated seawater instead of freshwater, and the broader industry trend toward closed-loop cooling (versus water-hungry evaporative systems) shows the sector responding, at least partially, to public pressure and cost incentives.</p></div>
+      <div class="topic-card"><span class="topic-icon">🚀</span><h3>A broader digital-economy multiplier</h3><p>Domestic AI compute lowers the cost and latency of building Indian-language models, government e-governance platforms (from Aadhaar-linked services to UPI-scale transaction processing), and startup products that would otherwise depend on renting capacity from data centers overseas. If even a fraction of the announced $150B+ pipeline converts into operating facilities on schedule, India would move from a minor player to a top-five global hub for AI infrastructure within this decade.</p></div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
