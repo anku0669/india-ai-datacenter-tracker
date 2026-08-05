@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outcomes — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link">Power</a>
+        <a href="water.html" class="nav-link">Water</a>
+        <a href="environment.html" class="nav-link">Environment</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+        <a href="concerns.html" class="nav-link">Concerns</a>
+        <a href="scaling.html" class="nav-link">Scaling</a>
+        <a href="outcomes.html" class="nav-link active">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-600 dark:text-violet-400 mb-4">🔮 Outcomes</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">Outcomes: Where This Is Headed by 2030</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">Two plausible trajectories, depending largely on whether disclosure rules, water governance and grid planning catch up with the pace of construction.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="outcome-box outcome-good">
+        <h3 class="text-xl font-bold mb-3">🟢 Best-case outcome</h3>
+        <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+          <li>India reaches or exceeds its 12 GW 2030 data center target, largely matched with new dedicated renewable-plus-storage capacity rather than public grid draw.</li>
+          <li>Mandatory water-use disclosure and water-stress mapping become law, closing the ESG gaps documented across Nxtra, AdaniConneX, STT GDC, NTT, CtrlS and Sify.</li>
+          <li>Closed-loop and desalinated cooling become the default for new coastal and water-stressed builds, sharply cutting freshwater withdrawal per MW.</li>
+          <li>India becomes a top-five global AI infrastructure hub, with GPU capacity genuinely reserved for domestic startups and research, strengthening digital sovereignty.</li>
+          <li>Community reporting channels and environmental clearance requirements are extended to data centers, reducing disputes like Thane's before they escalate.</li>
+        </ul>
+      </div>
+      <div class="outcome-box outcome-bad">
+        <h3 class="text-xl font-bold mb-3">🔴 Worst-case outcome</h3>
+        <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+          <li>Construction continues to outpace regulation; more Vizag- and Thane-style disputes emerge over undisclosed water sourcing, with no binding national framework to resolve them.</li>
+          <li>A weak monsoon year collides with peak construction, forcing acute local water-rationing decisions between data centers, farms and households in stressed basins.</li>
+          <li>Renewable additions lag AI power demand, pushing marginal generation back toward coal and eroding India's non-fossil capacity gains.</li>
+          <li>Some announced gigawatt-scale projects stall or scale back if global AI demand cools, leaving stranded land, power purchase agreements and half-built campuses.</li>
+          <li>Public trust erodes as "water-positive" and "carbon-neutral" claims from operators remain unverifiable, fueling the kind of community backlash already visible in the U.S. Brockovich dataset.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-8 text-gray-700 dark:text-gray-300 leading-relaxed max-w-4xl text-base">The realistic outcome likely lands somewhere between these two poles, and will vary sharply by state: expect Telangana and Tamil Nadu (with explicit policy frameworks) to trend toward the better-managed outcome faster than newer entrants like Odisha, where rules and precedent are still being written in real time.</p>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
