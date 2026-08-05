@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Water — India Data Center Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0/dist/index.global.js" integrity="sha384-nWTzRTCY/9V4Bo352ehygr1c4cnst4XN6lMR3fipakEQrhVpc0hEM5Dii3Amz0sT" crossorigin="anonymous"></script>
+  <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style>
+  <script>document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-dvh text-base antialiased bg-[#f7f6f3] dark:bg-[#0a0a0f] text-gray-900 dark:text-gray-100">
+
+  <div class="bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white text-center text-sm py-2.5 px-3 font-medium">
+    🇮🇳 Independent Tracking Initiative &nbsp;|&nbsp; Data compiled from public disclosures — see <a href="references.html" class="underline font-semibold">References</a>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#f7f6f3]/80 dark:bg-[#0a0a0f]/80 border-b border-gray-200 dark:border-gray-800">
+    <nav class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+      <a href="index.html" class="flex items-center gap-2.5"><span class="text-2xl">🏗️</span><span class="font-extrabold text-lg tracking-tight">India Data Center Tracker</span></a>
+      <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="power.html" class="nav-link">Power</a>
+        <a href="water.html" class="nav-link active">Water</a>
+        <a href="environment.html" class="nav-link">Environment</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+        <a href="concerns.html" class="nav-link">Concerns</a>
+        <a href="scaling.html" class="nav-link">Scaling</a>
+        <a href="outcomes.html" class="nav-link">Outcomes</a>
+        <a href="references.html" class="nav-link">References</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 pt-14 pb-10">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400 mb-4">💧 Water</span>
+    <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-4">India's Total Water Resources</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">The same national-vs-local logic applies to water. Here is how much water India actually has, how much of it is usable, and how that compares to what data centers draw today and could draw by 2030.</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" id="water-context-stats"></div>
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div class="chart-card"><canvas id="waterShareChart" height="280"></canvas></div>
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
+        <p>India's <strong>total average annual water resources are about 2,116 billion cubic meters (BCM)</strong>, per the Central Water Commission's 2024 assessment (updated from an earlier 1,999 BCM estimate, largely by including more trans-boundary river-basin water). Of that, only around <strong>1,123 BCM is realistically utilizable</strong> — 690 BCM from surface water and 433 BCM from replenishable groundwater — because the rest is lost to evaporation, flows to the sea, or is inaccessible.</p>
+        <p>Because most of India's rain falls in a three-month monsoon window and population has grown steadily, <strong>per-capita water availability has fallen to about 1,513 cubic meters per year</strong> — below the internationally recognized <strong>"water-stressed" threshold of 1,700 m³</strong> (and edging toward the 1,000 m³ "water-scarce" line). Agriculture alone consumes roughly <strong>80% of India's total water use</strong>, dwarfing every other sector combined.</p>
+        <p>Data centers, by contrast, are estimated to use about <strong>150 billion litres (0.15 BCM) nationally in 2025 — roughly 0.007% of India's total water resources</strong>, rising to an estimated 358 billion litres (~0.36 BCM, ~0.017%) by 2030. At the national level this is a rounding error. The problem, again, is concentration: most of that draw lands in a handful of already-stressed river basins and cities (Bengaluru, Hyderabad, Chennai, Thane), not spread evenly across the country's water surplus regions like the Brahmaputra or Ganga basins.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 py-16 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">Data Center Water Consumption, In Detail</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-3xl text-lg">The least-disclosed number in the entire sector — zooming in on how, where, and how much data centers actually draw.</p>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="chart-card">
+        <canvas id="waterChart" height="280"></canvas>
+        <p class="text-sm text-gray-400 mt-2">National data center water-use estimates. 2025 figure and 2030 projection per Eco-Business reporting; interim years interpolated to match the capacity growth curve.</p>
+      </div>
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed text-base space-y-4">
+        <p>Most Indian data centers still rely on <strong>evaporative cooling</strong>, which is cheap and energy-efficient but consumes large volumes of fresh water. One widely cited estimate from Karnataka puts consumption at roughly <strong>25 million litres per MW per year</strong>. Applied to India's ~1.5-1.9 GW of live capacity, that alone implies tens of billions of litres a year before the current expansion wave is even counted.</p>
+        <p>The geography is the real concern: an estimated <strong>75% of India's data centers sit in water-stressed regions</strong>, and a WRI India mapping exercise found more than half of facilities in areas already competing for scarce municipal and agricultural water. Bengaluru, Hyderabad and Chennai — three of India's top data-center hubs — are also three cities that regularly face acute water shortages.</p>
+        <p>Transparency is a persistent problem. A Down To Earth investigation of six major operators — Nxtra by Airtel, AdaniConneX, STT GDC India, NTT, CtrlS and Sify — found inconsistent, non-comparable ESG water disclosures with major year-to-year gaps: STT GDC reported total withdrawals rising to 1,149,020 KL in 2024; NTT disclosed 413,779 KL in 2023 but omitted water data in its 2025 report entirely; AdaniConneX has no standalone water disclosure at all. In Thane, residents found three contradictory official figures for the same Amazon facility — 10 KLD, 125 KLD and a planned 12 MLD municipal allocation — illustrating how hard it is for the public to verify real consumption.</p>
+        <p>Cooling technology choice matters enormously here. Evaporative and open-loop chilled-water systems lose most of their water to the atmosphere as vapor and cannot be meaningfully recycled on-site; closed-loop liquid cooling and air-based free cooling use far less water but typically cost more to build and, in hot climates, deliver a smaller efficiency benefit. Reliance's move to desalinated seawater at Jamnagar, and its planned desalination plant for the Vizag cluster, are among the first large-scale attempts in India to decouple gigawatt-scale AI cooling from freshwater and groundwater altogether — a model worth tracking as a possible national standard.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 py-10 text-sm text-gray-400 border-t border-gray-200 dark:border-gray-800">
+    <p>India Data Center Tracker — independent, open-source community awareness project. Data last compiled: <span id="footer-updated"></span>.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
