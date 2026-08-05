@@ -2,8 +2,9 @@
 // Compiled Aug 2026 from: KPMG India Data Centre Opportunity Report (2026), SBI Sector Report,
 // India Colocation Data Center Portfolio Report 2026, GII Research, Ghar.tv India Data Centre
 // Real Estate Report 2026, Economic Times, Business Standard, DataCenterDynamics, Reliance/Meta
-// press release, Down To Earth, Eco-Business, Scroll.in, The Hindu BusinessLine. See References
-// section on the page for direct links.
+// press release, Down To Earth, Eco-Business, Scroll.in, The Hindu BusinessLine, Ministry of Power
+// (CEA / powermin.gov.in), Central Water Commission "Assessment of Water Resources of India 2024",
+// India-WRIS, PIB. See References section on the page for direct links.
 
 const NATIONAL_STATS = {
   operationalGW: 1.9,          // installed capacity FY26 (KPMG)
@@ -18,6 +19,43 @@ const NATIONAL_STATS = {
   totalWaterUse2025BnLitres: 150,     // estimated national DC water use, 2025
   totalWaterUse2030BnLitres: 358,     // projected national DC water use, 2030
   lastUpdated: "August 2026"
+};
+
+// India's total power generation context (Ministry of Power / CEA, as of March 2026)
+const INDIA_POWER = {
+  totalCapacityGW: 533,          // total installed generation capacity, all sources
+  totalGenerationTWh: 1846,      // FY 2025-26 total electricity generated
+  coalGW: 229, coalPct: 43,
+  solarGW: 150, solarPct: 28,
+  windGW: 56, windPct: 11,
+  largeHydroGW: 51, largeHydroPct: 10,
+  nuclearGW: 9, nuclearPct: 2,
+  otherGW: 38, otherPct: 6,       // bio energy, small hydro, gas, etc. (balancing figure)
+  nonFossilSharePct: 50,          // non-fossil share of installed capacity, crossed 50% in June 2025
+  projected2032GW: 874,           // National Electricity Plan projection
+  projected2036GW: 1121,          // National Generation Adequacy Plan projection
+  dcShareTodayPct: 0.36,          // 1.9 GW / 533 GW
+  dcSharePipeline2030Pct: 1.37,   // ~12 GW / ~874 GW (2030-32 horizon)
+  source: "Ministry of Power (CEA), National Generation Adequacy Plan 2035-36, Vasudha Foundation FY2025-26 report"
+};
+
+// India's total water resources context (Central Water Commission 2024 assessment / India-WRIS / PIB)
+const INDIA_WATER = {
+  totalAnnualBCM: 2116,            // total average annual water resources (river basins), 2024 CWC assessment
+  utilizableBCM: 1123,             // total utilizable water resources
+  surfaceWaterBCM: 690,            // utilizable surface water
+  groundwaterUtilizableBCM: 433,   // utilizable/replenishable groundwater
+  groundwaterRechargeBCM: 448.52,  // total annual groundwater recharge, 2025 assessment
+  groundwaterExtractableBCM: 407.75,
+  groundwaterExtraction2025BCM: 247.22,
+  perCapitaM3: 1513,                // per-capita water availability, 2024 assessment
+  waterStressThresholdM3: 1700,     // internationally recognized "water stressed" threshold
+  waterScarcityThresholdM3: 1000,   // "water scarce" threshold
+  agricultureSharePct: 80,          // approx. share of India's total water use consumed by agriculture/irrigation
+  dcWaterUse2025BnLitres: 150,      // = 0.15 BCM — data center estimate, national
+  dcShareOfTotalPct: 0.007,         // 0.15 BCM / 2116 BCM
+  dcShareOfUtilizablePct: 0.013,    // 0.15 BCM / 1123 BCM
+  source: "Central Water Commission 'Assessment of Water Resources of India 2024'; India-WRIS; PIB"
 };
 
 // Capacity growth trajectory (GW) — for the projection chart
