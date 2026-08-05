@@ -11,9 +11,28 @@ document.addEventListener("DOMContentLoaded", () => {
   renderWaterChart();
   renderPowerShareChart();
   renderWaterShareChart();
-  document.getElementById("last-updated").textContent = NATIONAL_STATS.lastUpdated;
-  document.getElementById("footer-updated").textContent = NATIONAL_STATS.lastUpdated;
+  const lu = document.getElementById("last-updated");
+  if (lu) lu.textContent = NATIONAL_STATS.lastUpdated;
+  const fu = document.getElementById("footer-updated");
+  if (fu) fu.textContent = NATIONAL_STATS.lastUpdated;
 });
+
+function renderStats() {
+  const bar = document.getElementById("stats-bar");
+  if (!bar) return;
+  const stats = [
+    { value: `${NATIONAL_STATS.operationalGW} GW`, label: "Installed capacity (FY26)" },
+    { value: `${NATIONAL_STATS.pipelineGW} GW`, label: "Pipeline (next 5 years)" },
+    { value: `${NATIONAL_STATS.projected2030GW} GW`, label: "Projected capacity by 2030" },
+    { value: `${DATA_CENTERS.length}`, label: "Hubs tracked on this page" },
+  ];
+  bar.innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <div class="stat-value text-orange-600">${s.value}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join("");
+}
 
 function renderPowerContext() {
   const el = document.getElementById("power-context-stats");
@@ -49,22 +68,6 @@ function renderWaterContext() {
   `).join("");
 }
 
-function renderStats() {
-  const stats = [
-    { value: `${NATIONAL_STATS.operationalGW} GW`, label: "Installed capacity (FY26)" },
-    { value: `${NATIONAL_STATS.pipelineGW} GW`, label: "Pipeline (next 5 years)" },
-    { value: `${NATIONAL_STATS.projected2030GW} GW`, label: "Projected capacity by 2030" },
-    { value: `${DATA_CENTERS.length}`, label: "Hubs tracked on this page" },
-  ];
-  const bar = document.getElementById("stats-bar");
-  bar.innerHTML = stats.map(s => `
-    <div class="stat-card">
-      <div class="stat-value text-orange-600">${s.value}</div>
-      <div class="stat-label">${s.label}</div>
-    </div>
-  `).join("");
-}
-
 function statusColor(status) {
   if (status === "operational") return "#16a34a";
   if (status === "construction") return "#f59e0b";
@@ -78,39 +81,78 @@ function statusLabel(status) {
 }
 
 function renderMap() {
-  const map = L.map("map", { scrollWheelZoom: false }).setView([21.5, 79.0], 5);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+  const mapEl = document.getElementById("map");
+  if (!mapEl) return;
+
+  const map = L.map("map", {
+    scrollWheelZoom: false,
+    zoomControl: false,
+    attributionControl: true,
+  }).setView([22.5, 79.5], 5);
+
+  L.control.zoom({ position: "topright" }).addTo(map);
+
+  // High-quality dark basemap for a premium look
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
     maxZoom: 12,
+  }).addTo(map);
+
+  // India highlight outline (approximate bounding polygon)
+  const indiaBounds = L.polygon([
+    [8.0, 68.0], [8.0, 97.5], [37.0, 97.5], [37.0, 68.0]
+  ], {
+    color: "#f97316",
+    weight: 1.5,
+    dashArray: "6 6",
+    fill: false,
+    opacity: 0.5,
   }).addTo(map);
 
   DATA_CENTERS.forEach(dc => {
     const color = statusColor(dc.status);
+    const baseRadius = dc.liveMW ? Math.max(9, Math.min(24, Math.sqrt(dc.liveMW))) : 10;
+
+    // Glow ring
+    L.circleMarker([dc.lat, dc.lng], {
+      radius: baseRadius + 6,
+      fillColor: color,
+      color: "transparent",
+      fillOpacity: 0.25,
+    }).addTo(map);
+
+    // Main marker
     const marker = L.circleMarker([dc.lat, dc.lng], {
-      radius: dc.liveMW ? Math.max(8, Math.min(22, Math.sqrt(dc.liveMW))) : 9,
+      radius: baseRadius,
       fillColor: color,
       color: "#ffffff",
-      weight: 1.5,
-      fillOpacity: 0.85,
+      weight: 2,
+      fillOpacity: 0.95,
     }).addTo(map);
 
     const mw = dc.liveMW ? `${dc.liveMW} MW live` : "Live capacity: n/a";
     const pipeline = dc.pipelineMW ? `${dc.pipelineMW} MW pipeline` : "";
     marker.bindPopup(`
-      <b>${dc.name}</b>
-      ${dc.state}<br/>
-      <span style="color:${color}; font-weight:600;">${statusLabel(dc.status)}</span><br/>
-      ${mw}${pipeline ? " · " + pipeline : ""}<br/>
-      Operators: ${dc.operators.join(", ")}<br/>
-      Investment: ${dc.investmentUSD}<br/>
-      <em>${dc.note}</em><br/>
-      <span style="color:#888; font-size:0.7rem;">Source: ${dc.source}</span>
-    `);
+      <div style="min-width:220px;">
+        <b style="font-size:0.95rem;">${dc.name}</b>
+        <span style="color:#9ca3af; font-size:0.75rem;">${dc.state}</span><br/>
+        <span style="color:${color}; font-weight:700; font-size:0.8rem;">${statusLabel(dc.status)}</span><br/>
+        <span style="font-size:0.8rem;">${mw}${pipeline ? " · " + pipeline : ""}</span><br/>
+        <span style="font-size:0.75rem; color:#9ca3af;">Operators: ${dc.operators.join(", ")}</span><br/>
+        <span style="font-size:0.75rem; color:#9ca3af;">Investment: ${dc.investmentUSD}</span><br/>
+        <em style="font-size:0.75rem; display:block; margin-top:4px;">${dc.note}</em>
+        <span style="color:#6b7280; font-size:0.65rem; display:block; margin-top:4px;">Source: ${dc.source}</span>
+      </div>
+    `, { maxWidth: 320 });
+
+    // Show popup on hover for a premium feel
+    marker.on("mouseover", function() { this.openPopup(); });
   });
 }
 
 function renderHubCards() {
   const container = document.getElementById("hub-cards");
+  if (!container) return;
   container.innerHTML = DATA_CENTERS.map(dc => `
     <div class="hub-card">
       <span class="status-pill status-${dc.status}">${statusLabel(dc.status)}</span>
@@ -130,6 +172,7 @@ function renderHubCards() {
 
 function renderPowerChart() {
   const ctx = document.getElementById("powerChart");
+  if (!ctx) return;
   new Chart(ctx, {
     type: "bar",
     data: {
@@ -138,18 +181,19 @@ function renderPowerChart() {
         label: "Installed / projected capacity (GW)",
         data: CAPACITY_TIMELINE.map(d => d.gw),
         backgroundColor: CAPACITY_TIMELINE.map(d => d.type === "actual" ? "#ea580c" : "#fdba74"),
-        borderRadius: 4,
+        borderRadius: 6,
       }]
     },
     options: {
-      plugins: { legend: { display: false }, title: { display: true, text: "India Data Center Capacity Growth (GW)" } },
-      scales: { y: { beginAtZero: true, title: { display: true, text: "Gigawatts" } } }
+      plugins: { legend: { display: false }, title: { display: true, text: "India Data Center Capacity Growth (GW)", font: { size: 14, weight: "bold" } } },
+      scales: { y: { beginAtZero: true, title: { display: true, text: "Gigawatts" }, grid: { color: "rgba(0,0,0,0.05)" } }, x: { grid: { display: false } } }
     }
   });
 }
 
 function renderWaterChart() {
   const ctx = document.getElementById("waterChart");
+  if (!ctx) return;
   new Chart(ctx, {
     type: "line",
     data: {
@@ -158,15 +202,18 @@ function renderWaterChart() {
         label: "Estimated national DC water use (billion litres/year)",
         data: WATER_TIMELINE.map(d => d.bnLitres),
         borderColor: "#0284c7",
-        backgroundColor: "rgba(2,132,199,0.15)",
+        backgroundColor: "rgba(2,132,199,0.12)",
         fill: true,
-        tension: 0.3,
-        pointRadius: 4,
+        tension: 0.35,
+        pointRadius: 5,
+        pointBackgroundColor: "#0284c7",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
       }]
     },
     options: {
-      plugins: { legend: { display: false }, title: { display: true, text: "Projected Water Consumption (Billion Litres/Year)" } },
-      scales: { y: { beginAtZero: true, title: { display: true, text: "Billion litres" } } }
+      plugins: { legend: { display: false }, title: { display: true, text: "Projected Water Consumption (Billion Litres/Year)", font: { size: 14, weight: "bold" } } },
+      scales: { y: { beginAtZero: true, title: { display: true, text: "Billion litres" }, grid: { color: "rgba(0,0,0,0.05)" } }, x: { grid: { display: false } } }
     }
   });
 }
@@ -185,10 +232,12 @@ function renderPowerShareChart() {
           NATIONAL_STATS.projected2030GW
         ],
         backgroundColor: ["#e5e7eb", "#ea580c", "#fdba74"],
+        borderWidth: 0,
       }]
     },
     options: {
-      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } }, title: { display: true, text: `Data Centers vs. India's Total Grid (${INDIA_POWER.totalCapacityGW} GW)` } }
+      cutout: "65%",
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 }, padding: 16 } }, title: { display: true, text: `Data Centers vs. India's Total Grid (${INDIA_POWER.totalCapacityGW} GW)`, font: { size: 14, weight: "bold" } } }
     }
   });
 }
@@ -196,7 +245,7 @@ function renderPowerShareChart() {
 function renderWaterShareChart() {
   const ctx = document.getElementById("waterShareChart");
   if (!ctx) return;
-  const dcBCM = NATIONAL_STATS.totalWaterUse2025BnLitres / 1000; // billion litres -> BCM
+  const dcBCM = NATIONAL_STATS.totalWaterUse2025BnLitres / 1000;
   const dc2030BCM = NATIONAL_STATS.totalWaterUse2030BnLitres / 1000;
   new Chart(ctx, {
     type: "doughnut",
@@ -205,10 +254,12 @@ function renderWaterShareChart() {
       datasets: [{
         data: [INDIA_WATER.totalAnnualBCM - dcBCM - dc2030BCM, dcBCM, dc2030BCM],
         backgroundColor: ["#e5e7eb", "#0284c7", "#7dd3fc"],
+        borderWidth: 0,
       }]
     },
     options: {
-      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } }, title: { display: true, text: `Data Centers vs. India's Total Water Resources (${INDIA_WATER.totalAnnualBCM.toLocaleString()} BCM)` } }
+      cutout: "65%",
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 }, padding: 16 } }, title: { display: true, text: `Data Centers vs. India's Total Water Resources (${INDIA_WATER.totalAnnualBCM.toLocaleString()} BCM)`, font: { size: 14, weight: "bold" } } }
     }
   });
 }
