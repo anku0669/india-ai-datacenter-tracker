@@ -2,18 +2,18 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
 }
 
 .hub-card {
   border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
-  padding: 1.1rem;
+  border-radius: 1rem;
+  padding: 1.5rem;
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 html.dark .hub-card {
@@ -56,18 +56,101 @@ html.dark .stat-card {
 }
 
 .stat-card .stat-value {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 800;
   line-height: 1.1;
 }
 
 .stat-card .stat-label {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: #6b7280;
-  margin-top: 0.25rem;
+  margin-top: 0.3rem;
 }
 
 .leaflet-popup-content { font-size: 0.8rem; line-height: 1.4; }
 .leaflet-popup-content b { display: block; margin-bottom: 2px; }
 
 .table-wrapper { overflow-x: auto; }
+
+/* Bigger, individually-boxed "topic" sections used throughout Benefits, Concerns,
+   Environmental Impact, Scaling Cons, and Outcomes sections. */
+.topic-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+html.dark .topic-card {
+  border-color: #1f2937;
+  background: #0b0f19;
+}
+
+.topic-card .topic-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.topic-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.topic-card p, .topic-card ul {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Big national-context stat blocks (power / water) */
+.mega-stat {
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background: #fafafa;
+  text-align: center;
+}
+
+html.dark .mega-stat {
+  border-color: #1f2937;
+  background: #0b0f19;
+}
+
+.mega-stat .mega-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.mega-stat .mega-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.4rem;
+}
+
+/* Outcome scenario boxes */
+.outcome-box {
+  border-radius: 1rem;
+  padding: 1.75rem;
+  border: 2px solid transparent;
+}
+
+.outcome-good {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+.outcome-bad {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+html.dark .outcome-good {
+  background: rgba(22,101,52,0.12);
+  border-color: rgba(74,222,128,0.3);
+}
+html.dark .outcome-bad {
+  background: rgba(153,27,27,0.15);
+  border-color: rgba(248,113,113,0.3);
+}
