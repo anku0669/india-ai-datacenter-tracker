@@ -1,4 +1,11 @@
-/* India Data Center Tracker — supplemental styles (Tailwind handles most utility styling) */
+/* India Data Center Tracker — premium supplemental styles */
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-behavior: smooth; }
 
 .card-grid {
   display: grid;
@@ -14,11 +21,21 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hub-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 html.dark .hub-card {
   border-color: #1f2937;
-  background: #0b0f19;
+  background: #111118;
+}
+
+html.dark .hub-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
 .hub-card .status-pill {
@@ -44,15 +61,22 @@ html.dark .status-planned { background: #3a0a0a; color: #f87171; }
 
 .stat-card {
   border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
-  padding: 1rem;
+  border-radius: 1rem;
+  padding: 1.25rem;
   text-align: center;
-  background: #fafafa;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(234,88,12,0.12);
 }
 
 html.dark .stat-card {
   border-color: #1f2937;
-  background: #0b0f19;
+  background: #111118;
 }
 
 .stat-card .stat-value {
@@ -69,22 +93,49 @@ html.dark .stat-card {
 
 .leaflet-popup-content { font-size: 0.8rem; line-height: 1.4; }
 .leaflet-popup-content b { display: block; margin-bottom: 2px; }
+.leaflet-container { border-radius: 1rem; }
 
 .table-wrapper { overflow-x: auto; }
+
+/* ---------- chart cards ---------- */
+.chart-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+html.dark .chart-card {
+  border-color: #1f2937;
+  background: #111118;
+}
 
 /* Bigger, individually-boxed "topic" sections used throughout Benefits, Concerns,
    Environmental Impact, Scaling Cons, and Outcomes sections. */
 .topic-card {
   border: 1px solid #e5e7eb;
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   padding: 1.75rem;
   background: #ffffff;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.topic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  border-color: #fdba74;
 }
 
 html.dark .topic-card {
   border-color: #1f2937;
-  background: #0b0f19;
+  background: #111118;
+}
+
+html.dark .topic-card:hover {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  border-color: #9a3412;
 }
 
 .topic-card .topic-icon {
@@ -108,15 +159,22 @@ html.dark .topic-card {
 /* Big national-context stat blocks (power / water) */
 .mega-stat {
   border: 1px solid #e5e7eb;
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   padding: 1.5rem;
-  background: #fafafa;
+  background: #ffffff;
   text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mega-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
 }
 
 html.dark .mega-stat {
   border-color: #1f2937;
-  background: #0b0f19;
+  background: #111118;
 }
 
 .mega-stat .mega-value {
@@ -133,9 +191,15 @@ html.dark .mega-stat {
 
 /* Outcome scenario boxes */
 .outcome-box {
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   padding: 1.75rem;
   border: 2px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.outcome-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
 }
 
 .outcome-good {
