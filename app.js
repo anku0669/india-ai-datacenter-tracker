@@ -3,13 +3,51 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   renderStats();
+  renderPowerContext();
+  renderWaterContext();
   renderMap();
   renderHubCards();
   renderPowerChart();
   renderWaterChart();
+  renderPowerShareChart();
+  renderWaterShareChart();
   document.getElementById("last-updated").textContent = NATIONAL_STATS.lastUpdated;
   document.getElementById("footer-updated").textContent = NATIONAL_STATS.lastUpdated;
 });
+
+function renderPowerContext() {
+  const el = document.getElementById("power-context-stats");
+  if (!el) return;
+  const stats = [
+    { value: `${INDIA_POWER.totalCapacityGW} GW`, label: "India's total installed power capacity (Mar 2026)" },
+    { value: `${INDIA_POWER.totalGenerationTWh.toLocaleString()} TWh`, label: "Total electricity generated, FY 2025-26" },
+    { value: `${INDIA_POWER.nonFossilSharePct}%`, label: "Share from non-fossil sources" },
+    { value: `${INDIA_POWER.dcShareTodayPct}%`, label: "Data centers' share of national capacity, today" },
+  ];
+  el.innerHTML = stats.map(s => `
+    <div class="mega-stat">
+      <div class="mega-value text-orange-600">${s.value}</div>
+      <div class="mega-label">${s.label}</div>
+    </div>
+  `).join("");
+}
+
+function renderWaterContext() {
+  const el = document.getElementById("water-context-stats");
+  if (!el) return;
+  const stats = [
+    { value: `${INDIA_WATER.totalAnnualBCM.toLocaleString()} BCM`, label: "India's total annual water resources" },
+    { value: `${INDIA_WATER.utilizableBCM.toLocaleString()} BCM`, label: "Utilizable water resources/year" },
+    { value: `${INDIA_WATER.perCapitaM3.toLocaleString()} m³`, label: "Per-capita water availability (< 1,700 m³ = stressed)" },
+    { value: `${INDIA_WATER.dcShareOfTotalPct}%`, label: "Data centers' share of total water, nationally" },
+  ];
+  el.innerHTML = stats.map(s => `
+    <div class="mega-stat">
+      <div class="mega-value text-sky-600">${s.value}</div>
+      <div class="mega-label">${s.label}</div>
+    </div>
+  `).join("");
+}
 
 function renderStats() {
   const stats = [
@@ -129,6 +167,48 @@ function renderWaterChart() {
     options: {
       plugins: { legend: { display: false }, title: { display: true, text: "Projected Water Consumption (Billion Litres/Year)" } },
       scales: { y: { beginAtZero: true, title: { display: true, text: "Billion litres" } } }
+    }
+  });
+}
+
+function renderPowerShareChart() {
+  const ctx = document.getElementById("powerShareChart");
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Rest of India's grid", "Data centers (today, ~1.9 GW)", "Data centers (2030 pipeline, ~12 GW)"],
+      datasets: [{
+        data: [
+          INDIA_POWER.totalCapacityGW - NATIONAL_STATS.operationalGW - NATIONAL_STATS.projected2030GW,
+          NATIONAL_STATS.operationalGW,
+          NATIONAL_STATS.projected2030GW
+        ],
+        backgroundColor: ["#e5e7eb", "#ea580c", "#fdba74"],
+      }]
+    },
+    options: {
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } }, title: { display: true, text: `Data Centers vs. India's Total Grid (${INDIA_POWER.totalCapacityGW} GW)` } }
+    }
+  });
+}
+
+function renderWaterShareChart() {
+  const ctx = document.getElementById("waterShareChart");
+  if (!ctx) return;
+  const dcBCM = NATIONAL_STATS.totalWaterUse2025BnLitres / 1000; // billion litres -> BCM
+  const dc2030BCM = NATIONAL_STATS.totalWaterUse2030BnLitres / 1000;
+  new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Rest of India's water use", "Data centers (2025, ~0.15 BCM)", "Data centers (2030 projected, ~0.36 BCM)"],
+      datasets: [{
+        data: [INDIA_WATER.totalAnnualBCM - dcBCM - dc2030BCM, dcBCM, dc2030BCM],
+        backgroundColor: ["#e5e7eb", "#0284c7", "#7dd3fc"],
+      }]
+    },
+    options: {
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } }, title: { display: true, text: `Data Centers vs. India's Total Water Resources (${INDIA_WATER.totalAnnualBCM.toLocaleString()} BCM)` } }
     }
   });
 }
